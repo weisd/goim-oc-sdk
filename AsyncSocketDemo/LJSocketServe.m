@@ -303,6 +303,9 @@ static LJSocketServe *socketServe = nil;
     //服务端返回消息数据量比较大时，可能分多次返回。所以在读取消息的时候，设置MAX_BUFFER表示每次最多读取多少，当data.length < MAX_BUFFER我们认为有可能是接受完一个完整的消息，然后才解析
     if( data.length < MAX_BUFFER )
     {
+        if (data.length < 16) {
+            return;
+        }
         
         //从服务器发送的数据中减去前16字节的格式协议
         NSInteger dataLength = data.length;
